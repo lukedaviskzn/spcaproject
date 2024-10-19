@@ -1,11 +1,14 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import { slide } from "svelte/transition";
 
     export let dog;
+
+    const dispatch = createEventDispatcher();
 </script>
 
 <div class="bg-slate-600 rounded-xl overflow-hidden w-1/4" transition:slide={{axis: "x"}}>
-    <a class="block bg-cover bg-center w-full aspect-square" style="background-image: url('/dogs/{dog.image}')" href="/dogs/{dog.id}"></a>
+    <a class="block bg-cover bg-center w-full h-96" style="background-image: url('/dogs/{dog.image}')" href="#" on:click={() => dispatch("selectDog")}></a>
     <div class="flex p-4">
         <div class="flex-1">
             <h3 class="text-2xl mb-2">{dog.name}</h3>
