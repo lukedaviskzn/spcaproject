@@ -7,16 +7,25 @@ export const actions = {
     
         let data = await request.formData();
         let name = data.get('name')?.toString();
+        let type = data.get('type')?.toString();
         let image = data.get('image')?.toString();
-        let breed = data.get('breed')?.toString();
         let bio = data.get('bio')?.toString();
+        let breed = data.get('breed')?.toString();
         let date_of_birth = data.get('date_birth')?.toString();
         let date_of_death = data.get('date_death')?.toString();
+        let hobby = data.get('hobby')?.toString();
 
-        if (data && name && image && breed && bio) {
+        console.log(bio);
+        await fetch(`http://localhost:3000/generateBio?name=${name}&breed=${breed}&type=${type}&hobby=${hobby}`).then(response => {
+            return response.text()
+        }).then(dogdata => {bio = dogdata.toString()})
+        
+        console.log(bio);
+
+        if (data) {
             await turso.execute({
-                sql: 'INSERT INTO dogs (name, image, breed, bio, birth_date, death_date) VALUES (?, ?, ?, ?, ?, ?);',
-                args: [name, image, breed, bio, date_of_birth || null, date_of_death || null],
+                sql: 'INSERT INTO dogs (name, image, breed, bio, birth_date, death_date) VALUES (?, ?, ?, ?, ?, ?);' ,
+                args: [name, image, breed, bio, date_of_birth, date_of_death],
             })
         }
     },
