@@ -53,9 +53,9 @@
 <h3 class="text-xl">Premium Quality Dog Meat</h3>
 
 {subset_start}
-<div class="flex">
+<div class="flex w-full">
     <button class="text-5xl p-2" on:click={() => {subset_start--; createSubset()}}>&langle;</button>
-    <div class="flex gap-2">
+    <div class="flex gap-2 flex-1">
         {#each subset as dog (dog.id)}
             <DogCard dog={dog.dog}/>
         {/each}

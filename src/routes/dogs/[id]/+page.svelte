@@ -3,6 +3,7 @@
 	export let data;
 </script>
 
+<a class="inline-block m-2 bg-slate-600 rounded-sm px-2 py-1 border" href="/">Back</a>
 <div class="flex gap-2">
     {#if data.dog}
         <div class="bg-cover bg-center aspect-portrait w-48" style="background-image: url('/dogs/{data.dog.image}')"></div>
