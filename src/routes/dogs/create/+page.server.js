@@ -13,10 +13,10 @@ export const actions = {
         let date_of_birth = data.get('date_birth')?.toString();
         let date_of_death = data.get('date_death')?.toString();
 
-        if (data) {
+        if (data && name && image && breed && bio) {
             await turso.execute({
-                sql: 'INSERT INTO dogs (name, image, breed, bio, birth_date, death_date) VALUES (?, ?, ?, ?, ?, ?);' ,
-                args: [name, image, breed, bio, date_of_birth, date_of_death],
+                sql: 'INSERT INTO dogs (name, image, breed, bio, birth_date, death_date) VALUES (?, ?, ?, ?, ?, ?);',
+                args: [name, image, breed, bio, date_of_birth || null, date_of_death || null],
             })
         }
     },

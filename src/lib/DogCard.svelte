@@ -6,7 +6,7 @@
 
 <div class="bg-slate-600 p-2 w-1/4" transition:slide={{axis: "x"}}>
     {dog.name}
-    <div class="bg-cover bg-center w-full aspect-portrait" style="background-image: url('/dogs/{dog.image}')"></div>
+    <a class="block bg-cover bg-center w-full aspect-portrait" style="background-image: url('/dogs/{dog.image}')" href="/dogs/{dog.id}"></a>
     {dog.breed}
     {#if typeof dog.birth_date === "string"}
         - {(((new Date()).getTime() - (new Date(dog.birth_date)).getTime()) / 1000 / 3600 / 24 / 365.25).toFixed(0)}
