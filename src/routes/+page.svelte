@@ -1,27 +1,64 @@
 <script>
+    import DogCard from "$lib/DogCard.svelte";
+    import { onDestroy, onMount } from "svelte";
+
     export let data;
+
+    let subset_start = 0;
+    /**
+     * @type {any[]}
+     */
+    let subset = [];
+
+    /**
+     * @type {NodeJS.Timeout | undefined}
+     */
+    let interval;
+
+    function createInterval() {
+        interval = setInterval(() => {
+            subset_start += 1;
+            createSubset();
+        }, 2500);
+    }
+
+    function createSubset() {
+        let s = [];
+
+        for (let i = subset_start; i < subset_start + 4; i++) {
+            let j = i % data.dogs.length;
+            if (j < 0) {
+                j += data.dogs.length;
+            }
+            s.push({
+                id: i,
+                dog: data.dogs[j],
+            });
+        }
+
+        subset = s;
+    }
+
+    onMount(() => {
+        createSubset();
+        createInterval();
+    });
+
+    onDestroy(() => {
+        clearInterval(interval);
+    });
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1 class="text-2xl">DogMart</h1>
+<h3 class="text-xl">Premium Quality Dog Meat</h3>
 
-Dogs:
-<ul style="width: 50%">
-    {#each data.dogs as dog}
-        <li>
-            id: {dog.id}
-            <br>
-            name: {dog.name}
-            <br>
-            image: {dog.image}
-            <br>
-            breed: {dog.breed}
-            <br>
-            bio: {dog.bio}
-            <br>
-            birth_date: {new Date(dog.birth_date)} (Age: {((new Date() - new Date(dog.birth_date)) / (1000 * 3600 * 24 * 365)).toFixed(0)} years)
-            <br>
-            death_date: {dog.death_date}
-        </li>
-    {/each}
-</ul>
+{subset_start}
+<div class="flex">
+    <button class="text-5xl p-2" on:click={() => {subset_start--; createSubset()}}>&langle;</button>
+    <div class="flex gap-2">
+        {#each subset as dog (dog.id)}
+            <DogCard dog={dog.dog}/>
+        {/each}
+    </div>
+    <button class="text-5xl p-2" on:click={() => {subset_start++; createSubset()}}>&rangle;</button>
+</div>
