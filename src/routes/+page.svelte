@@ -1,5 +1,6 @@
 <script>
     import DogCard from "$lib/DogCard.svelte";
+    import NavBar from "$lib/NavBar.svelte";
     import { onDestroy, onMount } from "svelte";
 
     export let data;
@@ -49,8 +50,7 @@
     });
 </script>
 
-<h1 class="text-2xl">DogMart</h1>
-<h3 class="text-xl">Premium Quality Dog Meat</h3>
+<NavBar/>
 
 {subset_start}
 <div class="flex w-full">
