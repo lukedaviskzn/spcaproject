@@ -77,7 +77,7 @@
         loading = true;
         let response;
         try {
-            response = await (await fetch(`https://openpayment-test.onrender.com/payment?from=${encodeURIComponent(wallet)}&to=${encodeURIComponent(SPCA_WALLET)}&amount=${encodeURIComponent(amount*100)}&dog=${open.id}`)).json();
+            response = await (await fetch(`http://127.0.0.1:3000/payment?from=${encodeURIComponent(wallet)}&to=${encodeURIComponent(SPCA_WALLET)}&amount=${encodeURIComponent(amount*100)}&dog=${open.id}`)).json();
         } catch {}
         loading = false;
 
@@ -111,8 +111,8 @@
                 <p class="text-slate-200 mb-1">{open.breed}</p>
                 <p class="mb-2">{ open.bio } </p>
                 <div class="flex gap-2 items-center">
-                    <progress class="flex-1 my-0 rounded" value="32" max="100">32%</progress>
-                    $32 / $100
+                    <progress class="flex-1 my-0 rounded" value="{open.account}" max="100">{open.account}%</progress>
+                    ${open.account} / $100
                     <button class="bg-slate-600 rounded-sm px-2 py-1 border" on:click={() => open_payment = true}>Donate to Support { open.name }</button>
                 </div>
             </div>
