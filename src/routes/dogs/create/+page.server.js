@@ -9,12 +9,11 @@ const client = createClient({
 /** @type {import('./$types').Actions} */
 export const actions = {
     default: async ({ request }) => {
-    
         let data = await request.formData();
         let name = data.get('name')?.toString();
         let type = data.get('type')?.toString();
         let image = data.get('image')?.toString();
-        let bio = data.get('bio')?.toString();
+        let bio = "";
         let breed = data.get('breed')?.toString();
         let date_of_birth = data.get('date_birth')?.toString() || null;
         let date_of_death = data.get('date_death')?.toString() || null;
@@ -41,8 +40,8 @@ export const actions = {
         }]);
 
         await fetch(`http://localhost:3000/generateBio?name=${name}&breed=${breed}&type=${type}&hobby=${hobby}`).then(response => {
-            return response.text()
-        }).then(dogdata => {bio = dogdata.toString()})
+            return response.text();
+        }).then(dogdata => {bio = dogdata.toString()});
 
         if (data) {
             await turso.execute({
