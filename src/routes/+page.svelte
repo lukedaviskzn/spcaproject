@@ -77,7 +77,7 @@
         loading = true;
         let response;
         try {
-            response = await (await fetch(`https://openpayment-test.onrender.com/payment?from=${encodeURIComponent(wallet)}&to=${encodeURIComponent(SPCA_WALLET)}&amount=${encodeURIComponent(amount*100)}`)).json();
+            response = await (await fetch(`https://openpayment-test.onrender.com/payment?from=${encodeURIComponent(wallet)}&to=${encodeURIComponent(SPCA_WALLET)}&amount=${encodeURIComponent(amount*100)}&dog=${open.id}`)).json();
         } catch {}
         loading = false;
 
